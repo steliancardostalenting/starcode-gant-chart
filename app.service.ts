@@ -13,7 +13,6 @@ export class Service {
    * @returns After the conversion from ProductionOrder to Task array is done it will return a Task array, if no results then a empty array is expected
    */
   public async getProductionOrderTasks(url: string): Promise<Task[]> {
-    console.log(url);
     let res: Task[] = [];
 
     const jsonData = await firstValueFrom(this.http.get(url));

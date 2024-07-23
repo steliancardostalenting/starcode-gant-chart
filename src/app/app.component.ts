@@ -34,6 +34,14 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.loadTasks();
     this.registerDevExtremeLicense();
+    this.logIframeUrl();
+  }
+  logIframeUrl() {
+    var url =
+      window.location != window.parent.location
+        ? document.referrer
+        : document.location.href;
+    console.log(url);
   }
 
   private registerDevExtremeLicense(): void {
