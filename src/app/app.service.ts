@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ProductionOrderResponse } from './models/production-order-response';
 import { Task } from './models/task';
 import { firstValueFrom } from 'rxjs';
+import { ProductionOrder } from './models/production-order';
 
 @Injectable()
 export class Service {
@@ -32,5 +33,55 @@ export class Service {
     });
 
     return res;
+  }
+
+  updateTaskInDb(apiUrl: string, initialObject: Task) {
+    const url = `${apiUrl}(production_order_id=${initialObject.id})`;
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+    return this.http.patch(url, this.convertFromTaskToBdObject(initialObject), {
+      headers,
+    });
+  }
+
+  createTaskInDB(apiUrl: string, initialObject: Task) {
+    const url = `${apiUrl}`;
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+    return this.http.post(url, this.createNewDBObject(initialObject), {
+      headers,
+    });
+  }
+
+  deleteTask(apiUrl: string, key: any) {
+    const url = `${apiUrl}/${key}`;
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+    return this.http.delete(url, { headers });
+  }
+
+  private convertFromTaskToBdObject(initialObject: Task): ProductionOrder {
+    let dbOrder: ProductionOrder = {
+      end_date: initialObject.end.toISOString(),
+      start_date: initialObject.start.toISOString(),
+      order_title: initialObject.title,
+      progress: initialObject.progress,
+      parent_id: initialObject.parentId,
+      production_order_id: initialObject.id,
+    };
+    return dbOrder;
+  }
+
+  private createNewDBObject(initialObject: Task): Partial<ProductionOrder> {
+    let dbOrder: Partial<ProductionOrder> = {
+      end_date: initialObject.end.toISOString(),
+      start_date: initialObject.start.toISOString(),
+      order_title: initialObject.title,
+      progress: initialObject.progress,
+    };
+    return dbOrder;
   }
 }

@@ -1,4 +1,7 @@
-<dx-gantt [taskListWidth]="500" scaleType="weeks" height="700">
+<dx-gantt [taskListWidth]="500" scaleType="weeks" height="700"
+ (onTaskUpdated)="onTaskUpdated($event)"
+ (onTaskInserted)="onTaskInserted($event)"
+  (onTaskDeleted)="onTaskDeleted($event)">
   <dxo-tasks [dataSource]="tasks"></dxo-tasks>
   <dxi-column dataField="title" caption="Subject" [width]="300"></dxi-column>
   <dxi-column
