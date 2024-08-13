@@ -15,6 +15,10 @@ export class RegisterDevextremeService {
     config({ licenseKey });
   }
 
+  /**
+   * Use this method to generate the tasks on debug mode
+   * @returns
+   */
   public getDefaultTasks(): Task[] {
     const tasks: Task[] = [
       {

@@ -38,10 +38,11 @@ export function HttpLoaderFactory(http: HttpClient) {
 })
 export class AppComponent implements OnInit, AfterViewInit {
   @ViewChild(DxGanttComponent, { static: false }) gantt!: DxGanttComponent;
+
   tasks: Task[] = [];
   apiUrl: string = '';
-
   formatMessage = formatMessage;
+
   constructor(
     private elementRef: ElementRef,
     private service: Service,
@@ -60,6 +61,10 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.registerDevExtremeLicense();
   }
 
+  /**
+   * Update task event triggerred by the dev extreme dialog
+   * @param e The task to be updated
+   */
   public onTaskUpdated(e: TaskUpdatedEvent) {
     let initialObject = this.tasks.find((x) => x.id == e.key);
     if (initialObject) {
@@ -68,6 +73,10 @@ export class AppComponent implements OnInit, AfterViewInit {
     }
   }
 
+  /**
+   * Insert task event triggerred by the dev extreme dialog
+   * @param e The task to be inserted
+   */
   public onTaskInserted(e: TaskInsertedEvent) {
     this.service
       .createTaskInDB(this.apiUrl, e.values)
@@ -79,6 +88,10 @@ export class AppComponent implements OnInit, AfterViewInit {
     );
   }
 
+  /**
+   * Delete task event triggerred by the dev extreme dialog
+   * @param e The task to be deleted
+   */
   public onTaskDeleted(e: TaskDeletedEvent) {
     this.service.deleteTask(this.apiUrl, e.key).subscribe();
   }
@@ -165,7 +178,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         this.tasks = res;
       });
     }
-
+    //Use this method to debug as the API will not work
     //this.tasks = this.devExtremeService.getDefaultTasks();
   }
 

@@ -1,12 +1,11 @@
 <dx-gantt [taskListWidth]="500" scaleType="weeks" 
- (onTaskUpdated)="onTaskUpdated($event)"
- (onTaskInserted)="onTaskInserted($event)"
-  (onTaskDeleted)="onTaskDeleted($event)">
+          (onTaskUpdated)="onTaskUpdated($event)"
+          (onTaskInserted)="onTaskInserted($event)"
+          (onTaskDeleted)="onTaskDeleted($event)">
   <dxo-tasks [dataSource]="tasks"></dxo-tasks>
   <dxi-column dataField="title" [caption]="formatMessage('dxGantt-dialogTitle')" [width]="300"></dxi-column>
   <dxi-column dataField="start" [caption]="formatMessage('dxGantt-dialogStartTitle')" dataType="date" ></dxi-column>
   <dxi-column dataField="end" [caption]="formatMessage('dxGantt-dialogEndTitle')" dataType="date"></dxi-column>
-
   <dxo-toolbar>
     <dxi-item name="undo" [caption]="formatMessage('dxGantt-undo')"></dxi-item>
     <dxi-item name="redo" [caption]="formatMessage('dxGantt-redo')"></dxi-item>
@@ -20,8 +19,6 @@
     <dxi-item name="zoomIn" [caption]="formatMessage('dxGantt-zoomIn')"></dxi-item>
     <dxi-item name="zoomOut" [caption]="formatMessage('dxGantt-zoomOut')"></dxi-item>
   </dxo-toolbar>
-
   <dxo-validation [autoUpdateParentTasks]="true"></dxo-validation>
-  <dxo-editing [enabled]="true" [allowAdding]="true" [allowDeleting]="true" [allowUpdating]="true">
-  </dxo-editing>
+  <dxo-editing [enabled]="true" [allowAdding]="true" [allowDeleting]="true" [allowUpdating]="true"></dxo-editing>
 </dx-gantt>
