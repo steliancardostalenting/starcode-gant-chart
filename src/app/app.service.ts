@@ -36,7 +36,12 @@ export class Service {
   }
 
   updateTaskInDb(apiUrl: string, initialObject: Task) {
-    const url = `${apiUrl}(production_order_id=${initialObject.id})`;
+    let url: string;
+    url = `${apiUrl}(production_order_id=${initialObject.id})`;
+
+    if (this.usePlanningProperty(apiUrl))
+      url = `${apiUrl}(planning_id=${initialObject.id})`;
+
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
@@ -83,5 +88,9 @@ export class Service {
       progress: initialObject.progress,
     };
     return dbOrder;
+  }
+
+  private usePlanningProperty(url: string): boolean {
+    return url.indexOf('planning') > -1;
   }
 }
