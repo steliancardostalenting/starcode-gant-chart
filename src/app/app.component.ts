@@ -59,6 +59,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.loadTasks();
     this.registerDevExtremeLicense();
+    this.registerCurrentGantChartVersion();
   }
 
   /**
@@ -193,5 +194,23 @@ export class AppComponent implements OnInit, AfterViewInit {
       this.devExtremeService.licenseKey = licence;
       this.devExtremeService.registerLicense();
     }
+  }
+
+  /**
+   * Register the current gant chart project version
+   * IMPORTANT: This is the project version, not the devextreme version
+   */
+  private registerCurrentGantChartVersion() {
+    console.group('App Version');
+    this.logInfoWithStyle('Name:', 'StarCode gant chart');
+    this.logInfoWithStyle('Build number:', '1.0.5');
+    this.logInfoWithStyle('Build branch:', '-');
+    console.groupEnd();
+  }
+  private logInfoWithStyle(name: string, value: string): void {
+    console.info(
+      '%c'.concat(name).concat(' ').concat(value),
+      'background: #222; color:#fff'
+    );
   }
 }
